@@ -3,3 +3,11 @@
   justify-content: center;
   margin: 1em;
 }
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
