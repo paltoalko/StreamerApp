@@ -13,3 +13,12 @@ export const postStreamer = async (streamerData) => {
     throw new Error('Failed to post streamer data');
   }
 };
+
+export const getStreamers = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/streamers`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to retrieve streamers.');
+  }
+};
