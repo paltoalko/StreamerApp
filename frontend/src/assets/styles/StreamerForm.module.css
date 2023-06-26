@@ -1,0 +1,18 @@
+.formBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 70vw;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+}
+
+.textField {
+  width: 100%;
+}
