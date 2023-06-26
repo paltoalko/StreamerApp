@@ -10,9 +10,12 @@ import {
   Select,
   InputLabel,
   SelectChangeEvent,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
 import styles from '../../assets/styles/StreamerForm.module.css';
 import { Platforms } from '../../utils/constants';
+import { submitStreamerForm } from 'utils/submitStreamer';
 
 const StreamerForm: React.FC<object> = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +23,9 @@ const StreamerForm: React.FC<object> = () => {
     platform: '',
     description: '',
   });
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     event:
@@ -33,13 +39,35 @@ const StreamerForm: React.FC<object> = () => {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(formData);
+    setLoading(true);
+    const obj = {
+      fullname: formData.description,
+      platform: formData.platform,
+      description: formData.description,
+    };
+    try {
+      await submitStreamerForm(obj);
+      setSuccessMessage(true);
+    } catch (error) {
+      setErrorMessage(true);
+    }
+    setLoading(false);
   };
 
   return (
     <Box className={styles.formBox}>
+      {successMessage && (
+        <Alert severity="success" onClose={() => setSuccessMessage(false)}>
+          Streamer submitted succesfully!
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert severity="error" onClose={() => setErrorMessage(false)}>
+          There was an error while submitting new streamer.
+        </Alert>
+      )}
       <Paper elevation={5} sx={{ p: 5, m: 1, width: '80%' }}>
         <Typography
           variant="h5"
@@ -50,68 +78,81 @@ const StreamerForm: React.FC<object> = () => {
         >
           Submit New Streamer
         </Typography>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <TextField
-            label="Streamer Name"
-            name="streamerName"
-            value={formData.streamerName}
-            onChange={handleChange}
-            variant="outlined"
-            color="secondary"
-            className={styles.textField}
-            InputLabelProps={{
-              shrink: true,
+        {loading ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
             }}
-            required
-          />
-          <FormControl
-            variant="outlined"
-            color="secondary"
-            className={styles.textField}
           >
-            <InputLabel id="platform-label" shrink={true}>
-              Streaming Platform
-            </InputLabel>
-            <Select
-              labelId="platform-label"
-              label="Streaming Platform"
+            <CircularProgress color="secondary" />
+          </Box>
+        ) : (
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <TextField
+              label="Streamer Name"
+              name="streamerName"
+              value={formData.streamerName}
+              onChange={handleChange}
+              variant="outlined"
               color="secondary"
+              className={styles.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
               required
-              name="platform"
-              value={formData.platform}
-              onChange={(e) => handleChange(e)}
+            />
+            <FormControl
+              variant="outlined"
+              color="secondary"
+              className={styles.textField}
             >
-              {Platforms.map((platform) => (
-                <MenuItem key={platform} value={platform}>
-                  {platform}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            label="Description"
-            variant="outlined"
-            className={styles.textField}
-            color="secondary"
-            multiline
-            InputLabelProps={{
-              shrink: true,
-            }}
-            rows={4}
-            required
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            size="large"
-          >
-            Submit
-          </Button>
-        </form>
+              <InputLabel id="platform-label" shrink={true}>
+                Streaming Platform
+              </InputLabel>
+              <Select
+                labelId="platform-label"
+                label="Streaming Platform"
+                color="secondary"
+                required
+                name="platform"
+                value={formData.platform}
+                onChange={(e) => handleChange(e)}
+              >
+                {Platforms.map((platform) => (
+                  <MenuItem key={platform} value={platform}>
+                    {platform}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              label="Description"
+              variant="outlined"
+              className={styles.textField}
+              color="secondary"
+              multiline
+              InputLabelProps={{
+                shrink: true,
+              }}
+              rows={4}
+              required
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              size="large"
+            >
+              Submit
+            </Button>
+          </form>
+        )}
       </Paper>
     </Box>
   );
