@@ -17,14 +17,19 @@ import styles from '../../assets/styles/StreamerForm.module.css';
 import { Platforms } from '../../utils/constants';
 import { submitStreamerForm } from 'utils/submitStreamer';
 
-const StreamerForm: React.FC<object> = () => {
-  const [formData, setFormData] = useState({
+interface StreamerFormProps {
+  fetchStreamers: () => Promise<void>;
+}
+
+const StreamerForm: React.FC<StreamerFormProps> = ({ fetchStreamers }) => {
+  const initialFormData = {
     streamerName: '',
     platform: '',
     description: '',
-  });
+  };
+  const [formData, setFormData] = useState(initialFormData);
   const [successMessage, setSuccessMessage] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (
@@ -43,7 +48,7 @@ const StreamerForm: React.FC<object> = () => {
     event.preventDefault();
     setLoading(true);
     const obj = {
-      fullname: formData.description,
+      fullname: formData.streamerName,
       platform: formData.platform,
       description: formData.description,
     };
@@ -53,7 +58,9 @@ const StreamerForm: React.FC<object> = () => {
     } catch (error) {
       setErrorMessage(true);
     }
+    fetchStreamers();
     setLoading(false);
+    setFormData(initialFormData);
   };
 
   return (
@@ -68,12 +75,12 @@ const StreamerForm: React.FC<object> = () => {
           There was an error while submitting new streamer.
         </Alert>
       )}
-      <Paper elevation={5} sx={{ p: 5, m: 1, width: '80%' }}>
+      <Paper elevation={5} sx={{ p: 3, m: 1, width: '100%' }}>
         <Typography
           variant="h5"
           component="h2"
           align="center"
-          gutterBottom
+          marginBottom={'1.5em'}
           textTransform="uppercase"
         >
           Submit New Streamer
