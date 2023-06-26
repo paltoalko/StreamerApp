@@ -1,12 +1,27 @@
-import React from 'react';
-// import { v4 as uuid } from 'uuid';
+import React, { useEffect, useState } from 'react';
 import { Typography, Box } from '@mui/material';
 import styles from '../../assets/styles/Main.module.css';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import StreamerForm from 'components/form/StreamerForm';
+import StreamerList from 'components/streamer/StreamerList';
+import { getStreamers } from 'services/apiService';
 const Main: React.FC<object> = () => {
+  const [streamers, setStreamers] = useState([]);
+
+  const fetchStreamers = async () => {
+    try {
+      const res = await getStreamers();
+      setStreamers(res.data);
+    } catch (error) {
+      console.error('Error fetching streamers:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStreamers();
+  }, []);
   return (
-    <Box>
+    <Box className={styles.main}>
       <Box className={styles.logo}>
         <WhatshotIcon sx={{ fontSize: '42px' }} color="secondary" />
 
@@ -29,7 +44,8 @@ const Main: React.FC<object> = () => {
           APP
         </Typography>
       </Box>
-      <StreamerForm />
+      <StreamerForm fetchStreamers={fetchStreamers} />
+      <StreamerList streamers={streamers} />
     </Box>
   );
 };
