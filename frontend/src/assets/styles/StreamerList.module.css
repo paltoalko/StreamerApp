@@ -1,0 +1,25 @@
+.list {
+  display: flex;
+  min-width: 70vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.listItemPaper {
+  background-color: #ffffff !important;
+  color: black !important;
+}
+
+.listItemBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
