@@ -1,15 +1,24 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { useNavigate } from 'react-router-dom';
 
 const Logo: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
   return (
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'center',
         margin: '1em',
+        cursor: 'pointer',
       }}
+      onClick={handleLogoClick}
     >
       <WhatshotIcon sx={{ fontSize: '42px' }} color="secondary" />
       <Typography
