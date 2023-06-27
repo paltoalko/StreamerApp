@@ -22,3 +22,31 @@ export const getStreamers = async () => {
     throw new Error('Failed to retrieve streamers.');
   }
 };
+
+export const upvoteStreamer = async (streamerId: string) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/streamers/${streamerId}/vote`,
+      {
+        vote: 'up',
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const downvoteStreamer = async (streamerId: string) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/streamers/${streamerId}/vote`,
+      {
+        vote: 'down',
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
