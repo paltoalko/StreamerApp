@@ -59,3 +59,14 @@ export const getStreamerById = async (id: string) => {
     throw error.response.data;
   }
 };
+
+export const deleteStreamer = async (streamerId: string) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE_URL}/streamers/${streamerId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
