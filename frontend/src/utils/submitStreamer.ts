@@ -3,8 +3,9 @@ import { postStreamer } from 'services/apiService';
 export const submitStreamerForm = async (formData) => {
   try {
     const response = await postStreamer(formData);
-    console.log('Streamer data submitted successfully:', response);
+    return response.data;
   } catch (error) {
-    console.error('Failed to submit streamer data:', error.message);
+    console.error('Failed to submit streamer data:', error);
+    throw new Error('Failed to submit streamer data');
   }
 };

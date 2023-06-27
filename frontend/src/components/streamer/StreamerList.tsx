@@ -26,10 +26,8 @@ const ListItem: React.FC<ListItemProps> = ({ streamer, fetchStreamers }) => {
     try {
       if (vote === 'up') {
         await upvoteStreamer(streamer._id);
-        console.log('Upvoted streamer successfully');
       } else if (vote === 'down') {
         await downvoteStreamer(streamer._id);
-        console.log('Downvoted streamer successfully');
       }
       fetchStreamers();
     } catch (error) {
@@ -103,7 +101,7 @@ const StreamerList: React.FC<StreamerListProps> = ({
     };
 
     fetchData();
-  }, [fetchStreamers]);
+  }, []);
 
   return (
     <Box className={styles.list}>
