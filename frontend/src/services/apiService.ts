@@ -50,3 +50,12 @@ export const downvoteStreamer = async (streamerId: string) => {
     throw error.response.data;
   }
 };
+
+export const getStreamerById = async (id: string) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/streamers/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
