@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -11,13 +12,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import styles from '../../assets/styles/StreamerList.module.css';
 import { upvoteStreamer, downvoteStreamer } from 'services/apiService';
-
-interface Streamer {
-  _id: string;
-  fullname: string;
-  upvotes: number;
-  downvotes: number;
-}
+import { Streamer } from 'utils/types';
 
 interface ListItemProps {
   streamer: Streamer;
@@ -25,7 +20,6 @@ interface ListItemProps {
 }
 
 const ListItem: React.FC<ListItemProps> = ({ streamer, fetchStreamers }) => {
-  const handleClick = () => console.log('click');
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const vote = e.currentTarget.id === 'downvote' ? 'down' : 'up';
@@ -41,6 +35,13 @@ const ListItem: React.FC<ListItemProps> = ({ streamer, fetchStreamers }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Replace '/streamers/:id' with the correct URL for the streamer page
+    navigate(`/streamers/${streamer._id}`);
   };
 
   return (
