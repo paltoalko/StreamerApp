@@ -1,0 +1,47 @@
+.streamerAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  min-height: 100px;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageTop {
+  display: flex;
+  gap: 5em;
+  margin: 3em;
+}
+
+.voteBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+@media (max-width: 800px) {
+  .pageTop {
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin: 1em;
+  }
+}
