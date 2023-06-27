@@ -33,7 +33,11 @@ export const upvoteStreamer = async (streamerId: string) => {
     );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response && error.response.data) {
+      throw error.response.data;
+    } else {
+      throw new Error('Failed to upvote streamer');
+    }
   }
 };
 
@@ -47,7 +51,11 @@ export const downvoteStreamer = async (streamerId: string) => {
     );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response && error.response.data) {
+      throw error.response.data;
+    } else {
+      throw new Error('Failed to downvote streamer');
+    }
   }
 };
 
@@ -56,7 +64,11 @@ export const getStreamerById = async (id: string) => {
     const response = await axios.get(`${API_BASE_URL}/streamers/${id}`);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response && error.response.data) {
+      throw error.response.data;
+    } else {
+      throw new Error('Failed to retrieve streamer');
+    }
   }
 };
 
@@ -67,6 +79,10 @@ export const deleteStreamer = async (streamerId: string) => {
     );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response && error.response.data) {
+      throw error.response.data;
+    } else {
+      throw new Error('Failed to delete streamer');
+    }
   }
 };
