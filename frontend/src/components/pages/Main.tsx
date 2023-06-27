@@ -45,7 +45,7 @@ const Main: React.FC<object> = () => {
         </Typography>
       </Box>
       <StreamerForm fetchStreamers={fetchStreamers} />
-      <StreamerList streamers={streamers} />
+      <StreamerList streamers={streamers} fetchStreamers={fetchStreamers} />
     </Box>
   );
 };
