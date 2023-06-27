@@ -1,6 +1,6 @@
 # Streamer Management Application
 
-This project is a Streamer Management Application that allows users to view, submit, and interact with streamers on different platforms.
+The Streamer Management Application is a web-based application that allows users to view, submit, and interact with streamers on different platforms. It provides a user-friendly interface for managing streamers, including upvoting, downvoting, and viewing detailed information. The application is built using React, React Router, Material-UI, and integrates with a backend API for data retrieval and submission. It also includes unit tests to ensure the reliability of the codebase. Explore the Streamer Management Application to discover and engage with your favorite streamers.
 
 ## Table of Contents
 
