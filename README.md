@@ -6,6 +6,7 @@ This project is a Streamer Management Application that allows users to view, sub
 
 - [Installation](#installation)
 - [Backend](#Backend)
+- [Tests](#Tests)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -37,7 +38,7 @@ To run the backend server for this application, please follow these steps:
 4. Start the backend server by running npm start.
 5. Make sure the backend server is running and accessible at the specified API endpoint in the apiService.ts file of this project.
 
-## Running Tests
+## Tests
 
 To run the tests for this project, follow these steps:
 
