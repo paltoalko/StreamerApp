@@ -38,14 +38,11 @@ export class AppService {
   }
 
   async upvoteStreamer(id: string): Promise<Streamer | null> {
-    const objectId = Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : null;
-    if (!objectId) {
-      throw new NotFoundException('Invalid streamer ID');
-    }
-
-    const streamer = await this.streamerModel
-      .findByIdAndUpdate(objectId, { $inc: { upvotes: 1 } }, { new: true })
-      .exec();
+    const streamer = await this.streamerModel.findByIdAndUpdate(
+      id,
+      { $inc: { upvotes: 1 } },
+      { new: true },
+    );
 
     if (!streamer) {
       throw new NotFoundException('Streamer not found');
@@ -55,14 +52,11 @@ export class AppService {
   }
 
   async downvoteStreamer(id: string): Promise<Streamer | null> {
-    const objectId = Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : null;
-    if (!objectId) {
-      throw new NotFoundException('Invalid streamer ID');
-    }
-
-    const streamer = await this.streamerModel
-      .findByIdAndUpdate(objectId, { $inc: { downvotes: 1 } }, { new: true })
-      .exec();
+    const streamer = await this.streamerModel.findByIdAndUpdate(
+      id,
+      { $inc: { downvotes: 1 } },
+      { new: true },
+    );
 
     if (!streamer) {
       throw new NotFoundException('Streamer not found');

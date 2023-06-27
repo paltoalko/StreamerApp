@@ -62,18 +62,19 @@ export class AppController {
   @Put(':id/vote')
   async voteStreamer(
     @Param('id') id: string,
-    @Body() vote: 'up' | 'down',
+    @Body() vote: { vote: 'up' | 'down' },
   ): Promise<ResponseDto> {
     try {
       let updatedStreamer;
-      if (vote === 'up') {
+
+      if (vote.vote === 'up') {
         updatedStreamer = await this.appService.upvoteStreamer(id);
         return {
           message: 'Upvoted streamer successfully',
           data: updatedStreamer,
           statusCode: HttpStatus.OK,
         };
-      } else if (vote === 'down') {
+      } else if (vote.vote === 'down') {
         updatedStreamer = await this.appService.downvoteStreamer(id);
         return {
           message: 'Downvoted streamer successfully',
